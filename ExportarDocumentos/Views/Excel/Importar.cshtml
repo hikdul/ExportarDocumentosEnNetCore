@@ -1,0 +1,53 @@
+@using ExportarDocumentos.Models;
+@model ImportarDatos
+
+@{
+    string msg = ViewBag.Err;
+   
+}
+
+@if(!string.IsNullOrEmpty(msg))
+{
+    <div class="bg-danger">
+        <p class="text-white">@msg</p>
+    </div>
+}
+
+<h2>Soy la vista de importar</h2>
+<br/> 
+<a href="#" >Descargar Documento Prueba</a>
+<br />
+
+<form action="Importar" enctype="multipart/form-data" method="post"> 
+    <input asp-for="doc" type="file">
+    <input type="submit" value="Cargar Datos" />
+
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>Userid</th>
+            <th>Title</th>
+            <th>Complete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(ViewBag.Datos!=null)
+        {
+            List<Datos> data = ViewBag.Datos;
+            foreach (var item in data)
+            {
+                string complete = item.complete ? "SI" : "NO"; 
+                <tr>
+                    <td>@item.id</td>
+                    <td>@item.userId</td>
+                    <td>@item.title</td>
+                    <td>@complete</td>
+                </tr>                
+            }
+        }
+    </tbody>
+</table>
+
